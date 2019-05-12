@@ -6,7 +6,7 @@ go:
   - 1.10.8
 
 install:
-  - pwd
+  # At this point, Travis will have taken us to $GOPATH/src/github.com/christianb93/bitcoin-controller-helm-qa
   # Get script to perform VM setup from the bitcoin-controller repository
   - wget https://raw.githubusercontent.com/christianb93/bitcoin-controller/master/travis/setupVMAndCluster.sh
   - chmod 700 setupVMAndCluster.sh
@@ -16,13 +16,21 @@ install:
   - export KUBECONFIG=$(kind get kubeconfig-path --name="kind")
   # Install the controller using the helm chart from this commit, then
   # let us print some output to ease debugging if something goes wrong
-  - pwd
   - helm install .
   - kubectl get pods --all-namespaces
 
 
 script:
   - cd $TRAVIS_BUILD_DIR/../bitcoin-controller
+  # Bring up a bitcoin instance in Docker to enable integration tests
   - id=$(docker run -d -p 18332:18332 christianb93/bitcoind:v1.0)
+  # run all tests
   - cd tests
   - go test -v -run "Integration"
+
+
+after_success:
+  # get promote script
+  - wget https://raw.githubusercontent.com/christianb93/bitcoin-controller/master/travis/promote.sh
+  - chmod 700 promote.sh
+  - ./promote.sh

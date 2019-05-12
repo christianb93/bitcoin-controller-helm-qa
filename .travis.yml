@@ -21,3 +21,6 @@ script:
   - pwd
   - ls
   - kubectl get pods --all-namespaces
+  - helm list
+  # Install the controller using the helm chart from this commit
+  - helm install .

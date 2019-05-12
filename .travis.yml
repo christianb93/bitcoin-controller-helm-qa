@@ -6,6 +6,7 @@ go:
   - 1.10.8
 
 install:
+  - pwd
   # Get script to perform VM setup from the bitcoin-controller repository
   - wget https://raw.githubusercontent.com/christianb93/bitcoin-controller/master/travis/setupVMAndCluster.sh
   - chmod 700 setupVMAndCluster.sh
@@ -13,16 +14,15 @@ install:
   - ./setupVMAndCluster.sh
   # make sure that we have KUBECONFIG set correctly for what follows
   - export KUBECONFIG=$(kind get kubeconfig-path --name="kind")
-  - kubectl get pods --all-namespaces
-  - pwd
-  - helm list
   # Install the controller using the helm chart from this commit, then
   # let us print some output to ease debugging if something goes wrong
+  - pwd
   - helm install .
   - kubectl get pods --all-namespaces
-  - sleep 3 && kubectl logs bitcoin-controller -n bitcoin-controller
 
 
 script:
-  - ls
-  - pwd
+  - cd $TRAVIS_BUILD_DIR/../bitcoin-controller
+  - id=$(docker run -d -p 18332:18332 christianb93/bitcoind:v1.0)
+  - cd tests
+  - go test -v -run "Integration"

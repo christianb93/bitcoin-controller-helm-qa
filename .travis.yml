@@ -13,8 +13,8 @@ install:
   - ./setupVMAndCluster.sh
   # make sure that we have KUBECONFIG set correctly for what follows
   - export KUBECONFIG=$(kind get kubeconfig-path --name="kind")
-  # Use helm to install the controller
-  - helm install .
+  - echo "Using KUBECONFIG $KUBECONFIG"
+  - kubectl get pods --all-namespaces
 
 
 script:

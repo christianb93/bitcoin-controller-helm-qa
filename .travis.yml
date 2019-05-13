@@ -36,7 +36,7 @@ script:
   - cd tests
   - go test -v -run "Integration" -count=1
   # remove log.txt from Go build cache to avoid upload of large cache if nothing else changes
-  rm -f $TRAVIS_HOME/.cache/go-build/log.txt
+  - rm -f $TRAVIS_HOME/.cache/go-build/log.txt
   # get and run cleanup script
   - wget https://raw.githubusercontent.com/christianb93/bitcoin-controller/master/travis/afterBuild.sh
   - chmod 700 afterBuild.sh

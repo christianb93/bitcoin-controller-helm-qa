@@ -6,6 +6,10 @@ env:
 
 go:
   - 1.10.8
+  
+cache:
+  directories:
+  - $TRAVIS_HOME/cache 
 
 install:
   # At this point, Travis will have taken us to $GOPATH/src/github.com/christianb93/bitcoin-controller-helm-qa

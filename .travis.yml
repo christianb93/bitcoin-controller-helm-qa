@@ -35,6 +35,10 @@ script:
   # run all tests
   - cd tests
   - go test -v -run "Integration" -count=1
+  # get and run cleanup script
+  - wget https://raw.githubusercontent.com/christianb93/bitcoin-controller/master/travis/afterBuild.sh
+  - chmod 700 afterBuild.sh
+  - ./afterBuild.sh
 
 
 after_success:

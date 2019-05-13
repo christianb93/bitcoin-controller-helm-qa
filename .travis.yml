@@ -9,7 +9,9 @@ go:
   
 cache:
   directories:
-  - $TRAVIS_HOME/cache 
+  # We use our own directory for caching as well as $HOME/.cache that is used by Go
+  - $TRAVIS_HOME/cache
+  - $TRAVIS_HOME/.cache
 
 install:
   # At this point, Travis will have taken us to $GOPATH/src/github.com/christianb93/bitcoin-controller-helm-qa
@@ -32,7 +34,7 @@ script:
   - id=$(docker run -d -p 18332:18332 christianb93/bitcoind:v1.0)
   # run all tests
   - cd tests
-  - go test -v -run "Integration"
+  - go test -v -run "Integration" -count=1
 
 
 after_success:

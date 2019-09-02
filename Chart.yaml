@@ -1,8 +1,8 @@
 apiVersion: v1
 name: bitcoin-controller-helm-qa
-version: 0.8
+version: 0.8-devc8d1a8e
 description: A bitcoin controller for Kubernetes
-appVersion: 0.8
+appVersion: c8d1a8e
 maintainers:
   - name: christianb93
     url: https://www.github.com/christianb93/bitcoin-controller

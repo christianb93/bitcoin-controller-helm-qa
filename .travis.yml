@@ -2,10 +2,10 @@ language: go
 dist: xenial
 
 env:
-  - GO111MODULE=off
+  - GO111MODULE=on
 
 go:
-  - 1.10.8
+  - 1.13.6
   
 cache:
   directories:

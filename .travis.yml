@@ -18,13 +18,11 @@ install:
   # Get script to perform VM setup from the bitcoin-controller repository
   - wget https://raw.githubusercontent.com/christianb93/bitcoin-controller/master/travis/setupVMAndCluster.sh
   - chmod 700 setupVMAndCluster.sh
-  # and run it. This will install helm and kind, bring up a cluster and install helm into it
+  # and run it. This will install helm and kind and bring up a cluster
   - ./setupVMAndCluster.sh
-  # make sure that we have KUBECONFIG set correctly for what follows
-  - export KUBECONFIG=$(kind get kubeconfig-path --name="kind")
   # Install the controller using the helm chart from this commit, then
   # let us print some output to ease debugging if something goes wrong
-  - helm install .
+  - helm install bitcoin-controller-helm-qa .
   - kubectl get pods --all-namespaces
 
 

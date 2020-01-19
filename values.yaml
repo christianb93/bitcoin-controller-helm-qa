@@ -1,4 +1,4 @@
-controller_image_tag: "13220cf"
+controller_image_tag: "79dc49e"
 secret_name: bitcoin-default-secret
 bitcoin_user: bc-user
 bitcoin_password: bc-password
